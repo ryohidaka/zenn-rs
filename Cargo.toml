@@ -2,6 +2,11 @@
 name = "zenn"
 version = "0.1.0"
 edition = "2021"
+authors = ["ryohidaka <39184410+ryohidaka@users.noreply.github.com>"]
+license = "MIT"
+description = "Unofficial ZennAPI Client."
+repository = "https://github.com/ryohidaka/zenn-rs"
+readme = "README.md"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
