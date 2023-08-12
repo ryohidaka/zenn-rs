@@ -17,7 +17,7 @@ use reqwest;
 /// # Example
 ///
 /// ```rust
-/// use my_api_client::api_request;
+/// use zenn::request::api_request;
 ///
 /// #[tokio::main]
 /// async fn main() {
@@ -41,4 +41,25 @@ pub async fn api_request(path: &str, params: &str) -> Result<String, reqwest::Er
     let body = response.text().await?;
 
     Ok(body)
+}
+
+#[cfg(test)]
+mod tests {
+    // Using functions from the same file
+    use super::*;
+
+    #[tokio::test]
+    async fn test_api_request() {
+        // Arrange
+        let path = "/example";
+        let params = "?param=value";
+
+        // Act
+        let result = api_request(path, params).await;
+
+        // Assert
+        assert!(result.is_ok());
+        let response_body = result.unwrap();
+        assert!(!response_body.is_empty());
+    }
 }
