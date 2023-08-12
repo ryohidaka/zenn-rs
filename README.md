@@ -4,9 +4,7 @@ Unofficial ZennAPI Client.
 
 ## Features
 
-- Feature 1: [Briefly describe feature 1]
-- Feature 2: [Briefly describe feature 2]
-- ...
+- Fetch articles by user_name.
 
 ## Installation
 
@@ -14,35 +12,35 @@ Add this to your `Cargo.toml`:
 
 ```toml
 [dependencies]
-my_awesome_crate = "0.1.0"
+zenn = "0.1.0"
 ```
 
 ## Usage
 
 ```rust
-// Import the crate
-use my_awesome_crate;
+use zenn::articles::fetch_articles;
+use zenn::types::ArticleSearchParams;
 
-fn main() {
-    // Use the crate's functionality
-    let result = my_awesome_crate::do_something();
+#[tokio::main]
+async fn main() {
+    let search_params = ArticleSearchParams {
+        username: "example_user".to_string(),
+        count: 10,
+        order: "latest".to_string(),
+    };
 
-    // Print the result
-    println!("Result: {:?}", result);
+    let result = fetch_articles(search_params).await;
+
+    match result {
+        Ok(data) => println!("Fetched articles: {:?}", data),
+        Err(err) => eprintln!("Error fetching articles: {:?}", err),
+    }
 }
-```
-
-## Examples
-
-Check out the `examples` directory for more usage examples. Run them using:
-
-```bash
-cargo run --example example_name
 ```
 
 ## Contributing
 
-Contributions are welcome! If you find a bug or have an idea for a new feature, please [open an issue](https://github.com/your_username/my_awesome_crate/issues) or submit a pull request.
+Contributions are welcome! If you find a bug or have an idea for a new feature, please [open an issue](https://github.com/ryohidaka/zenn-rs/issues) or submit a pull request.
 
 ## License
 
