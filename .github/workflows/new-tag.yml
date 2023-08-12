@@ -1,0 +1,36 @@
+name: tag
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - Cargo.toml
+
+jobs:
+  tag:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 2
+
+      - name: Check for Initial Commit
+        id: initial_commit
+        run: echo ::set-output name=commit_count::$(git rev-list --count HEAD)
+
+      - name: Detect Current Tag
+        if: ${{ steps.initial_commit.outputs.commit_count != '1' }}
+        id: detect_tag
+        uses: salsify/action-detect-and-tag-new-version@v2
+        with:
+          create-tag: false
+          version-command: cargo read-manifest | jq -r .version || echo "error"
+
+      - name: Create or Update Tag
+        uses: mathieudutour/github-tag-action@v5.6
+        with:
+          custom_tag: ${{ steps.detect_tag.outputs.current-version }}
+          github_token: ${{ secrets.GH_TOKEN }}
+        if: ${{ steps.detect_tag.outputs.current-version != 'error' && steps.detect_tag.outputs.current-version != '' }}
