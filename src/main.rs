@@ -1,3 +1,3 @@
 fn main() {
-    template::run();
+    zenn::run();
 }

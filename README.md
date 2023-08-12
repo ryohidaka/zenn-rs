@@ -1,6 +1,6 @@
-# cargo-template
+# zenn-rs
 
-Welcome to My Awesome Rust Crate! This crate provides amazing functionality for [describe what your crate does here].
+Unofficial ZennAPI Client.
 
 ## Features
 
